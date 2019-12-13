@@ -1,0 +1,256 @@
+package pkg3115hw4;
+
+import static java.lang.Math.E;
+import java.text.DecimalFormat;
+import javafx.application.Application;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
+import javafx.scene.Scene;
+import javafx.stage.Stage;
+import javafx.scene.layout.GridPane;
+import javafx.scene.control.*;
+import javafx.scene.layout.*;
+import javafx.geometry.*;
+import java.util.*;
+import javafx.collections.FXCollections;
+
+public class incomeTaxCalculator extends Application {
+
+    @Override
+    public void start(Stage primaryStage) {
+        //set display
+        GridPane grid = new GridPane();
+        grid.setPadding(new Insets(25, 25, 25, 25));
+        grid.setHgap(10);
+        grid.setVgap(10);
+        Scene scene = new Scene(grid, 300, 350);
+        primaryStage.setTitle("Income Tax Calculator");
+        primaryStage.setScene(scene);
+        primaryStage.show();
+
+        grid.add(new Label("Income: "), 0, 2);
+        TextField income = new TextField();
+        income.setPrefWidth(100);
+        grid.add(income, 1, 2);
+
+        grid.add(new Label("Filing As: "), 0, 3);
+        String status[] = {"Married", "Single"};
+        ComboBox comboB = new ComboBox(FXCollections.observableArrayList(status));
+        grid.add(comboB, 1, 3);
+
+        grid.add(new Label("Federal Tax Rate: "), 0, 5);
+        Label ftrOutput = new Label("");
+        ftrOutput.setPrefWidth(100);
+        grid.add(ftrOutput, 1, 5);
+
+        grid.add(new Label("Federal Amount: "), 0, 6);
+        Label faOutput = new Label("");
+        faOutput.setPrefWidth(100);
+        grid.add(faOutput, 1, 6);
+
+        grid.add(new Label("NYS Tax Rate: "), 0, 8);
+        Label nystrOutput = new Label("");
+        nystrOutput.setPrefWidth(100);
+        grid.add(nystrOutput, 1, 8);
+
+        grid.add(new Label("NYS Tax Amount: "), 0, 9);
+        Label nystaOutput = new Label("");
+        nystaOutput.setPrefWidth(100);
+        grid.add(nystaOutput, 1, 9);
+
+        grid.add(new Label("Total Income Tax: "), 0, 11);
+        Label titOutput = new Label("");
+        titOutput.setPrefWidth(100);
+        grid.add(titOutput, 1, 11);
+
+        HBox buttonBox = new HBox(15);
+        Button calculate = new Button();
+        calculate.setText("Calculate");
+
+        buttonBox.getChildren().add(calculate);
+        grid.add(buttonBox, 0, 13);
+        //create math for average
+
+        calculate.setOnAction(e -> {
+            double gotIncome = Integer.valueOf(income.getText());
+            if (0 == 0) {
+                if (gotIncome >= 0 && gotIncome < 9525) {
+                    //federal
+                    ftrOutput.setText("10");
+                    int gotftr = Integer.valueOf(ftrOutput.getText());
+                    double calculatefa = (((double) gotftr / 100)) * gotIncome;
+                    //convert to String
+                    String calculatefda = String.valueOf(calculatefa);
+                    faOutput.setText(calculatefda);
+
+                    //nys
+                    if (gotIncome >= 0 && gotIncome < 8500) {
+                        nystrOutput.setText("4");
+                        int gotnystr = Integer.valueOf(nystrOutput.getText());
+                        double calculatenystr = (((double) gotnystr / 100)) * gotIncome;
+                        String calculatenysta = String.valueOf(calculatenystr);
+                        nystaOutput.setText(calculatenysta);
+
+                        //total
+                        double calculatetit = calculatefa + calculatenystr;
+                        String lastStep = String.valueOf(calculatetit);
+                        titOutput.setText(lastStep);
+                    } else if (gotIncome >= 8500 && gotIncome < 11700) {
+                        nystrOutput.setText("4.5");
+                        double gotnystr = Double.valueOf(nystrOutput.getText());
+                        double calculatenystr = (((double) gotnystr / 100)) * (340 + gotIncome);
+                        String calculatenysta = String.valueOf(calculatenystr);
+                        nystaOutput.setText(calculatenysta);
+
+                        //total
+                        double calculatetit = calculatefa + calculatenystr;
+                        String lastStep = String.valueOf(calculatetit);
+                        titOutput.setText(lastStep);
+                    }
+                } else if (gotIncome >= 0 && gotIncome < 38700) {//9525
+                    ftrOutput.setText("12");
+                    int gotftr = Integer.valueOf(ftrOutput.getText());
+                    double calculatefa = (((double) gotftr / 100)) * gotIncome;
+                    //convert to String
+                    String calculatefda = String.valueOf(calculatefa);
+                    faOutput.setText(calculatefda);
+                    //nys
+                    if (gotIncome >= 8500 && gotIncome < 11700) {
+                        nystrOutput.setText("4.5");
+                        double gotnystr = Double.valueOf(nystrOutput.getText());
+                        double calculatenystr = (((double) gotnystr / 100)) * (340 + gotIncome);
+                        String calculatenysta = String.valueOf(calculatenystr);
+                        nystaOutput.setText(calculatenysta);
+
+                        //total
+                        double calculatetit = calculatefa + calculatenystr;
+                        String lastStep = String.valueOf(calculatetit);
+                        titOutput.setText(lastStep);
+                    } else if (gotIncome >= 13900 && gotIncome < 21400) {
+                        //nys
+
+                    }
+                    //here
+                    if (gotIncome >= 11700 && gotIncome < 13900) {
+                        nystrOutput.setText("5.25");
+                        double gotnystr = Double.valueOf(nystrOutput.getText());
+                        double calculatenystr = (((double) gotnystr / 100)) * (484 + gotIncome);
+                        String calculatenysta = String.valueOf(calculatenystr);
+                        nystaOutput.setText(calculatenysta);
+
+                        //total
+                        double calculatetit = calculatefa + calculatenystr;
+                        String lastStep = String.valueOf(calculatetit);
+                        titOutput.setText(lastStep);
+                    } else if (gotIncome >= 13900 && gotIncome < 21400) {
+                        nystrOutput.setText("5.9");
+                        double gotnystr = Double.valueOf(nystrOutput.getText());
+                        double calculatenystr = (((double) gotnystr / 100)) * (600 + gotIncome);
+                        String calculatenysta = String.valueOf(calculatenystr);
+                        nystaOutput.setText(calculatenysta);
+
+                        //total
+                        double calculatetit = calculatefa + calculatenystr;
+                        String lastStep = String.valueOf(calculatetit);
+                        titOutput.setText(lastStep);
+                    }
+                    else if (gotIncome >= 21400 && gotIncome < 80650) {
+                        nystrOutput.setText("6.33");
+                        double gotnystr = Double.valueOf(nystrOutput.getText());
+                        double calculatenystr = (((double) gotnystr / 100)) * (1042 + gotIncome);
+                        String calculatenysta = String.valueOf(calculatenystr);
+                        nystaOutput.setText(calculatenysta);
+
+                        //total
+                        double calculatetit = calculatefa + calculatenystr;
+                        String lastStep = String.valueOf(calculatetit);
+                        titOutput.setText(lastStep);
+                    }
+                    else if (gotIncome >= 80650 && gotIncome < 215400) {
+                        nystrOutput.setText("6.57");
+                        double gotnystr = Double.valueOf(nystrOutput.getText());
+                        double calculatenystr = (((double) gotnystr / 100)) * (4793 + gotIncome);
+                        String calculatenysta = String.valueOf(calculatenystr);
+                        nystaOutput.setText(calculatenysta);
+
+                        //total
+                        double calculatetit = calculatefa + calculatenystr;
+                        String lastStep = String.valueOf(calculatetit);
+                        titOutput.setText(lastStep);
+                    }
+                    
+                    
+                } else if (gotIncome >= 0 && gotIncome < 82500) {
+                    ftrOutput.setText("22");
+                    int gotftr = Integer.valueOf(ftrOutput.getText());
+                    double calculatefa = (((double) gotftr / 100)) * gotIncome;
+                    //convert to String
+                    String calculatefda = String.valueOf(calculatefa);
+                    faOutput.setText(calculatefda);
+                    //nys
+                    if (gotIncome >= 13900 && gotIncome < 21400) {
+                        nystrOutput.setText("5.9");
+                        double gotnystr = Double.valueOf(nystrOutput.getText());
+                        double calculatenystr = (((double) gotnystr / 100)) * (600 + gotIncome);
+                        String calculatenysta = String.valueOf(calculatenystr);
+                        nystaOutput.setText(calculatenysta);
+
+                        //total
+                        double calculatetit = calculatefa + calculatenystr;
+                        String lastStep = String.valueOf(calculatetit);
+                        titOutput.setText(lastStep);
+                    }
+                    else if (gotIncome >= 21400 && gotIncome < 80650) {
+                        nystrOutput.setText("6.33");
+                        double gotnystr = Double.valueOf(nystrOutput.getText());
+                        double calculatenystr = (((double) gotnystr / 100)) * (1042 + gotIncome);
+                        String calculatenysta = String.valueOf(calculatenystr);
+                        nystaOutput.setText(calculatenysta);
+
+                        //total
+                        double calculatetit = calculatefa + calculatenystr;
+                        String lastStep = String.valueOf(calculatetit);
+                        titOutput.setText(lastStep);
+                    }
+                    else if (gotIncome >= 80650 && gotIncome < 215400) {
+                        nystrOutput.setText("6.57");
+                        double gotnystr = Double.valueOf(nystrOutput.getText());
+                        double calculatenystr = (((double) gotnystr / 100)) * (4793 + gotIncome);
+                        String calculatenysta = String.valueOf(calculatenystr);
+                        nystaOutput.setText(calculatenysta);
+
+                        //total
+                        double calculatetit = calculatefa + calculatenystr;
+                        String lastStep = String.valueOf(calculatetit);
+                        titOutput.setText(lastStep);
+                    }
+                } else if (gotIncome >= 0 && gotIncome < 157500) {
+                    ftrOutput.setText("24");
+                    int gotftr = Integer.valueOf(ftrOutput.getText());
+                    double calculatefa = (((double) gotftr / 100)) * gotIncome;
+                    //convert to String
+                    String calculatefda = String.valueOf(calculatefa);
+                    faOutput.setText(calculatefda);
+                    //nys
+                    if (gotIncome >= 0 && gotIncome < 215400) {
+                        nystrOutput.setText("6.85");
+                        double gotnystr = Double.valueOf(nystrOutput.getText());
+                        double calculatenystr = (((double) gotnystr / 100)) * (13646 + gotIncome);
+                        String calculatenysta = String.valueOf(calculatenystr);
+                        nystaOutput.setText(calculatenysta);
+
+                        //total
+                        double calculatetit = calculatefa + calculatenystr;
+                        String lastStep = String.valueOf(calculatetit);
+                        titOutput.setText(lastStep);
+                    }
+                }
+            }
+        });
+    }
+
+    public static void main(String[] args) {
+        launch(args);
+    }
+
+}
